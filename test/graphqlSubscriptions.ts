@@ -144,13 +144,12 @@ describe('GraphQL Subscriptions', () => {
 
   it('should start a subscription on network interface and unsubscribe', (done) => {
     const network = mockSubscriptionNetworkInterface([sub1]);
-    const queryManager = new QueryManager({
+    // This test calls directly through Apollo Client
+    const client = new ApolloClient({
       networkInterface: network,
-      reduxRootKey: 'apollo',
-      store: createApolloStore(),
     });
 
-    const sub = queryManager.startGraphQLSubscription(options).subscribe({
+    const sub = client.subscribe(options).subscribe({
       next(result) {
         assert.deepEqual(result, results[0].result);
 
