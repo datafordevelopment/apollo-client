@@ -4,7 +4,7 @@ Expect active development and potentially significant breaking changes in the `0
 
 ### vNEXT
 
-- ...
+- Change subscription API to `subscribe` function on Apollo Client instance, and remove `fetchMore`-style API temporarily.
 
 ### v0.4.13
 
