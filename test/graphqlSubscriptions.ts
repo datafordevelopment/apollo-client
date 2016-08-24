@@ -16,6 +16,8 @@ import {
   createApolloStore,
 } from '../src/store';
 
+import ApolloClient from '../src';
+
 describe('GraphQL Subscriptions', () => {
   const results = ['Dahivat Pandya', 'Vyacheslav Kim', 'Changping Chen', 'Amanda Liu'].map(
     name => ({ result: { user: { name: name } }, delay: 10 })
@@ -140,7 +142,7 @@ describe('GraphQL Subscriptions', () => {
 
   });
 
-  it('should start a subscription on network interface', (done) => {
+  it('should start a subscription on network interface and unsubscribe', (done) => {
     const network = mockSubscriptionNetworkInterface([sub1]);
     const queryManager = new QueryManager({
       networkInterface: network,
@@ -151,12 +153,19 @@ describe('GraphQL Subscriptions', () => {
     const sub = queryManager.startGraphQLSubscription(options).subscribe({
       next(result) {
         assert.deepEqual(result, results[0].result);
+
+        // Test unsubscribing
+        sub.unsubscribe();
+        assert.equal(Object.keys(network.mockedSubscriptionsById).length, 0);
+
         done();
       },
-    }) as any;
+    });
 
-    const id = sub._networkSubscriptionId;
+    const id = (sub as any)._networkSubscriptionId;
     network.fireResult(id);
+
+    assert.equal(Object.keys(network.mockedSubscriptionsById).length, 1);
   });
 
   it('should multiplex subscriptions', (done) => {
