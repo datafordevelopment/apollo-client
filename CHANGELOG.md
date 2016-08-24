@@ -5,6 +5,7 @@ Expect active development and potentially significant breaking changes in the `0
 ### vNEXT
 
 - ...
+- Fixed an issue with batching and variables used in directives. [PR #584](https://github.com/apollostack/apollo-client/pull/584) and [Issue #577](https://github.com/apollostack/apollo-client/issues/577).
 
 ### v0.4.13
 
