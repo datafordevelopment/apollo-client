@@ -4,7 +4,7 @@ Expect active development and potentially significant breaking changes in the `0
 
 ### vNEXT
 
-- ...
+- Fixed issue with error passing with query merging. [PR #589](https://github.com/apollostack/apollo-client/pull/589) and [Issue #551](https://github.com/apollostack/apollo-client/issues/551).
 
 ### v0.4.13
 
